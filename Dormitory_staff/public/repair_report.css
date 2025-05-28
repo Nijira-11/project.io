@@ -1,0 +1,25 @@
+.report-card {
+    background: #e9e9e9;
+    border-radius: 15px;
+    padding: 20px;
+    width: 1100px;
+    font-size: 0.85rem;
+    line-height: 1.8;
+}
+
+.report-image {
+    width: 100%;
+    border-radius: 12px;
+    max-height: 250px;
+    object-fit: cover;
+}
+
+.report-status {
+    background-color: #f0ad00;
+    color: white;
+    font-weight: 600;
+    border-radius: 20px;
+    padding: 6px 20px;
+    width: 150px;
+}
+

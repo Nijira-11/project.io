@@ -1,0 +1,22 @@
+.custom-table thead th {
+    background-color: #E7CB83 !important;
+    color: black !important
+}
+
+.status-btn {
+    background-color: #FF662C !important;
+    color: white !important;
+    font-weight: 500 !important;
+    border-radius: 20px !important;
+    padding: 6px 12px !important;
+    width: 80px !important;
+    text-align: center !important;
+    border: none !important;
+    transition: background-color 0.3s ease !important;
+}
+
+.status-btn:hover {
+    background-color: #BB9945 !important;
+    color: #3A7062 !important;
+    cursor: pointer !important;
+}

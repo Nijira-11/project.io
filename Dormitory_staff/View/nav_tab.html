@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile</title>
+    <!-- External CSS -->
+    <link rel="stylesheet" href="/Dormitory_staff/public/nav_bar.css" />
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</head>
+
+<body>
+
+    <div class="navbar">
+        <div class="navbar-left">
+            <img src="/Dormitory_staff/image/mfu_logo.png" class="logo" />
+            <span class="title">
+                <span class="mfu">MFU</span>
+                <span class="dormfix">DormFix</span>
+            </span>
+        </div>
+
+        <div class="navbar-right">
+            <i class="fa-solid fa-bell"></i>
+
+            <a href="/Dormitory_staff/View/profile.html"
+                style="text-decoration: none; color: inherit; display: flex; align-items: center;">
+                <div class="user-info">
+                    <div class="name">Gojo Satoru</div>
+                    <div class="role">Dormitory staff</div>
+                </div>
+                <img src="/Dormitory_staff/image/satoru.jpg" class="profile-pic" />
+            </a>
+        </div>
+    </div>
+
+    <!-- Tabs / Sidebar -->
+    <div class="tabs">
+        <p class="menu px-3">MENU</p>
+
+        <a href="/Dormitory_staff/View/dashboard.html" class="tab-item" style="text-decoration: none; color: inherit;">
+            <i class="fa-solid fa-chart-line"></i>
+            <span>Dashboard</span>
+        </a>
+
+        <a href="/Dormitory_staff/View/repair_report.html" class="tab-item"
+            style="text-decoration: none; color: inherit;">
+            <i class="fa-solid fa-screwdriver-wrench"></i>
+            <span>Repair Report</span>
+        </a>
+
+        <a href="/Dormitory_staff/View/list.html" class="tab-item" style="text-decoration: none; color: inherit;">
+            <i class="fa-solid fa-clipboard-list"></i>
+            <span>List of Student</span>
+        </a>
+
+        <a href="/Dormitory_staff/View/schedule.html" class="tab-item" style="text-decoration: none; color: inherit;">
+            <i class="fa-solid fa-calendar-days"></i>
+            <span>Schedule</span>
+        </a>
+
+        <a href="/Dormitory_staff/View/history.html" class="tab-item" style="text-decoration: none; color: inherit;">
+            <i class="fa-solid fa-clock-rotate-left"></i>
+            <span>History</span>
+        </a>
+
+        <div class="logout-wrapper">
+            <button type="button" class="logout" onclick="showLogoutModal()">
+                <i class="fa-solid fa-right-from-bracket"></i> Log out
+            </button>
+        </div>
+    </div>
+
+    <!-- Logout Modal -->
+    <div class="modal fade" id="logoutModal" tabindex="-1" aria-labelledby="logoutModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered custom-modal">
+            <div class="modal-content text-center p-4">
+                <h5 class="fw-bold mb-2 fs-2 py-4">Do you want to logout?</h5>
+                <div class="d-flex justify-content-center gap-5">
+                    <button type="button" class="btn btn-primary btn-lg fw-bold" onclick="handleLogout()">Yes</button>
+                    <button type="button" class="btn btn-danger btn-lg fw-bold" data-bs-dismiss="modal">No</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Logout Function -->
+    <script>
+        function handleLogout() {
+            window.location.href = "/Dormitory_staff/View/logout.html";
+        }
+
+        function showLogoutModal() {
+            const modal = new bootstrap.Modal(document.getElementById('logoutModal'));
+            modal.show();
+        }
+    </script>
+</body>
+
+</html>

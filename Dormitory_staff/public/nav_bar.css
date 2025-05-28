@@ -1,0 +1,169 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html,
+body {
+    height: 100%;
+    font-family: sans-serif;
+}
+
+/* Layout */
+body {
+    display: flex;
+    flex-direction: column;
+}
+
+body>.d-flex {
+    flex: 1;
+    min-height: 0;
+}
+
+/* Navbar */
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #f5f5f5;
+    padding: 10px 40px;
+    border-bottom: 1px solid #ccc;
+    position: fixed !important;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1050;
+}
+
+.navbar-left {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.logo {
+    width: 30px;
+    height: auto;
+    border-radius: 50%;
+    margin-left: 10px;
+}
+
+.title {
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.title .mfu {
+    color: red;
+    margin-right: 3px;
+}
+
+.title .dormfix {
+    color: goldenrod;
+}
+
+.navbar-right {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.user-info {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    font-size: 12px;
+    margin-right: 20px;
+    margin-left: 20px;
+}
+
+.name {
+    font-weight: bold;
+}
+
+.role {
+    color: gray;
+    font-size: 11px;
+}
+
+.profile-pic {
+    width: 30px;
+    height: 25px;
+    border-radius: 50%;
+    margin-right: 20px;
+}
+
+/* Sidebar */
+.tabs {
+    position: fixed;
+    top: 56px;
+    left: 0;
+    width: 150px;
+    height: calc(100vh - 56px);
+    background-color: #c62828;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    padding: 20px 0;
+    z-index: 1040;
+    overflow-y: auto;
+}
+
+.tabs p {
+    font-weight: 100;
+    margin-bottom: 20px;
+}
+
+.tab-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 8px;
+    margin-bottom: 10px;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+    text-decoration: none;
+    color: inherit;
+}
+
+.tab-item:hover {
+    background-color: #BB9945;
+    color: #3A7062;
+}
+
+.tab-item i {
+    font-size: 1.1rem;
+    width: 20px;
+    text-align: center;
+}
+
+.tab-item span {
+    white-space: nowrap;
+    font-size: 0.8rem;
+    font-weight: 300;
+}
+
+/* Logout Button */
+.logout-wrapper {
+    display: flex;
+    justify-content: center;
+    margin-top: auto;
+}
+
+.logout {
+    width: 80%;
+    font-size: 0.8rem;
+    font-weight: bold;
+    background-color: #D9D9D9;
+    text-align: center;
+    padding: 10px;
+    border: none;
+    border-radius: 20px;
+    cursor: pointer;
+}
+
+.logout:hover {
+    background-color: #BB9945;
+}
+

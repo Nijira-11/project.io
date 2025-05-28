@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Technician schedule</title>
+    <link rel="stylesheet" href="/Dormitory_staff/public/sch.css" />
+    <link rel="stylesheet" href="/Dormitory_staff/public/nav_bar.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</head>
+
+<body>
+    <!-- Navbar -->
+    <div id="navbar"></div>
+
+    <!-- Main Layout -->
+    <div class="d-flex" style="flex: 1;">
+        <!-- Sidebar -->
+        <div id="sidebar"></div>
+
+        <!-- Main Content -->
+        <div class="container py-5 mt-5" style="margin-left: 160px;">
+            <h2>Technician Schedule</h2>
+
+            <!-- Filter/Search Section -->
+            <div class="d-flex align-items-center gap-4 mt-3" style="max-width: 900px;">
+                <!-- Dormitory -->
+                <div class="d-flex flex-column" style="width: 180px;">
+                    <label for="dormitory" class="form-label mb-1"
+                        style="font-weight: 500; font-size: 0.85rem;">Dormitory</label>
+                    <select class="form-select form-select-sm" id="dormitory" name="dormitory">
+                        <option selected>Lamduan 7</option>
+                        <option value="option2">Option 2</option>
+                        <option value="option3">Option 3</option>
+                    </select>
+                </div>
+
+                <!-- Search -->
+                <div class="flex-grow-1 d-flex flex-column">
+                    <label for="search" class="form-label mb-1" style="visibility: hidden;">Search Label</label>
+                    <div class="input-group input-group-sm shadow-sm rounded" style="background: #F5F5F5;">
+                        <input type="search" class="form-control border-0" id="search" placeholder="Search....." />
+                        <span class="input-group-text bg-transparent border-0">
+                            <i class="fa-solid fa-magnifying-glass"></i>
+                        </span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Table Container -->
+            <div class="table-responsive mt-4">
+                <table class="table table-bordered table-striped align-middle text-center custom-table"
+                    style="font-size: 0.9rem; background-color: #FFB4AF;">
+                    <thead style="background-color: #FF7C7C !important; color: white !important;">
+                        <tr>
+                            <th>Repair report date</th>
+                            <th>Date of repair</th>
+                            <th>Reporter's Name</th>
+                            <th>Repair/Maintenance</th>
+                            <th>Technician</th>
+                            <th>Status</th>
+                            <th>Detail</th>
+                        </tr>
+                    </thead>
+                    <tbody id="report-table-body"></tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal -->
+    <div class="modal fade" id="detailModal" tabindex="-1" aria-labelledby="detailModalLabel" aria-hidden="true" >
+        <div class="modal-dialog modal-dialog-centered" style="max-width: 600px;">
+            <div class="modal-content" >
+                <div class="modal-header">
+                    <h5 class="modal-title" id="detailModalLabel">Repair Detail</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body" id="modal-detail-content"></div>
+                
+            </div>
+        </div>
+    </div>
+
+    <!-- JavaScript -->
+    <script>
+        // โหลด navbar และ sidebar
+        window.addEventListener("DOMContentLoaded", () => {
+                fetch('/Dormitory_staff/View/nav_tab.html')
+                    .then(res => res.text())
+                    .then(data => {
+                        const temp = document.createElement('div');
+                        temp.innerHTML = data;
+
+                        // ดึง navbar, sidebar และ modal logout จาก temp
+                        const navbar = temp.querySelector('.navbar');
+                        const tabs = temp.querySelector('.tabs');
+                        const logoutModal = temp.querySelector('#logoutModal');
+
+                        if (navbar) document.getElementById('navbar').appendChild(navbar);
+                        if (tabs) document.getElementById('sidebar').appendChild(tabs);
+                        if (logoutModal) document.body.appendChild(logoutModal);
+
+                        // เพิ่มฟังก์ชันหลังจาก modal แปะเรียบร้อย
+                        window.showLogoutModal = function () {
+                            const modal = new bootstrap.Modal(document.getElementById('logoutModal'));
+                            modal.show();
+                        }
+
+                        window.handleLogout = function () {
+                            window.location.href = "/Dormitory_staff/View/logout.html";
+                        }
+                    });
+            });
+
+        // ข้อมูลจำลอง
+        const reports = [
+                { repairdate: "01/01/2025", date: "02/01/2025", name: "Miss Lisa Lalisa", main: "Light bulb not working", tec: "Jane Cooper", status: "Confirmed" },
+                { repairdate: "03/01/2025", date: "04/01/2025", name: "Mr. John Smith", main: "Air conditioner leaking", tec: "Mike Johnson", status: "Confirmed" },
+                { repairdate: "05/01/2025", date: "06/01/2025", name: "Mrs. Mary Jones", main: "Broken door lock", tec: "Emily Davis", status: "Confirmed" },
+                { repairdate: "07/01/2025", date: "08/01/2025", name: "Mr. David Lee", main: "Water pipe leaking", tec: "Alex Morgan", status: "Confirmed" },
+                { repairdate: "09/01/2025", date: "10/01/2025", name: "Miss Anna Kim", main: "Broken window", tec: "Sara Clark", status: "Confirmed" },
+                { repairdate: "11/01/2025", date: "12/01/2025", name: "Mr. Kevin Brown", main: "Toilet not flushing", tec: "Tom Harris", status: "Confirmed" },
+                { repairdate: "13/01/2025", date: "14/01/2025", name: "Mrs. Angela White", main: "Ceiling fan shaking", tec: "Liam Scott", status: "Confirmed" },
+                { repairdate: "15/01/2025", date: "16/01/2025", name: "Mr. Chris Martin", main: "Door knob broken", tec: "Emma Lee", status: "Confirmed" },
+                { repairdate: "17/01/2025", date: "18/01/2025", name: "Miss Sarah Taylor", main: "Shower not working", tec: "Oliver Clark", status: "Confirmed" },
+                { repairdate: "19/01/2025", date: "20/01/2025", name: "Mr. Daniel Kim", main: "Electrical short", tec: "Sophia Hill", status: "Confirmed" },
+                { repairdate: "21/01/2025", date: "22/01/2025", name: "Mrs. Olivia Green", main: "Broken floor tile", tec: "Mason Wright", status: "Confirmed" },
+                { repairdate: "23/01/2025", date: "24/01/2025", name: "Mr. Ethan Black", main: "Sink leaking", tec: "Ava Walker", status: "Confirmed" },
+                { repairdate: "25/01/2025", date: "26/01/2025", name: "Miss Emily King", main: "Cracked wall", tec: "James Hall", status: "Confirmed" },
+                { repairdate: "27/01/2025", date: "28/01/2025", name: "Mr. Matthew Young", main: "Stove malfunction", tec: "Chloe Allen", status: "Confirmed" },
+                { repairdate: "29/01/2025", date: "30/01/2025", name: "Mrs. Grace Lewis", main: "Wi-Fi not working", tec: "Logan Scott", status: "Confirmed" }
+            ];
+
+
+        // ใส่ข้อมูลลงตาราง
+        const tableBody = document.getElementById("report-table-body");
+        reports.forEach((report, index) => {
+            const row = document.createElement("tr");
+            row.innerHTML = `
+        <td>${report.repairdate}</td>
+        <td>${report.date}</td>
+        <td>${report.name}</td>
+        <td>${report.main}</td>
+        <td>${report.tec}</td>
+        <td style="font-weight: bold; color: #0E12FF;">${report.status}</td>
+        <td>
+          <button class="status-btn btn btn-sm btn-warning" 
+                  data-index="${index}" 
+                  data-bs-toggle="modal" 
+                  data-bs-target="#detailModal">View</button>
+        </td>
+      `;
+            tableBody.appendChild(row);
+        });
+
+        // จัดการเมื่อคลิกปุ่ม View
+        document.addEventListener("click", function (e) {
+            if (e.target && e.target.classList.contains("status-btn")) {
+                const row = e.target.closest("tr");
+
+                const repairDate = row.cells[0].textContent;
+                const date = row.cells[1].textContent;
+                const name = row.cells[2].textContent;
+                const main = row.cells[3].textContent;
+                const technician = row.cells[4].textContent;
+                const status = row.cells[5].textContent;
+
+                const modalContent = `
+          <div style="background: #FFF2CC; padding: 20px; border-radius: 10px;">
+            <p><strong>Name:</strong> ${name}</p>
+            <p><strong>Dormitory:</strong> Lamduan 7</p>
+            <p><strong>Room:</strong> 7203</p>
+            <p><strong>Repair Type:</strong> Electrical</p>
+            <p><strong>Repair / Maintenance:</strong> ${main}</p>
+            <p><strong>Damage Description:</strong> Replace with a new light bulb</p>
+            <p><strong>Repair report date:</strong> ${repairDate} 12:00 AM</p>
+            <p><strong>Date of repair:</strong> ${date} 1:00 PM</p>
+            <p><strong>Status:</strong> <span style="color:blue; font-weight:bold;">${status}</span></p>
+          </div>
+          <div class="text-center mt-3">
+            <i class="fa-regular fa-image fa-10x"></i>
+          </div>
+        `;
+
+                document.getElementById("modal-detail-content").innerHTML = modalContent;
+            }
+        });
+    </script>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>

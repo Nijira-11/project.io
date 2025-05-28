@@ -1,0 +1,60 @@
+body {
+    background-color: #f8f9fa;
+    font-family: 'Segoe UI', sans-serif;
+    padding-left: 150px;
+    padding-top: 70px;
+    /* ปรับตามความสูงจริงของ navbar */
+}
+
+.card {
+    border-radius: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
+}
+
+
+.status-completed {
+    background-color: #d4edda;
+    color: #155724;
+    border-radius: 20px;
+    padding: 4px 12px;
+    font-size: 0.9rem;
+}
+
+/* Chart sizing */
+#barChart {
+    width: 100% !important;
+    height: 300px !important;
+    max-width: 900px;
+}
+
+#pieChart {
+    margin: 0 auto;
+    height: 300px !important;
+    max-width: 500px;
+    margin: 0 auto;
+
+}
+
+.container i {
+    margin-right: 20px;
+}
+
+select.form-select {
+    border-radius: 50px !important;
+    padding-right: 2.5rem !important;
+    color: white;
+    background-color: #198754;
+    border: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+select.form-select:focus {
+    background-color: white !important;
+    color: black !important;
+    outline: none;
+    box-shadow: 0 0 0 0.25rem rgba(25, 135, 84, 0.5);
+}
